@@ -53,6 +53,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 CICDBadweh.list \
 
+OBJCOPY_BIN += \
+CICDBadweh.bin \
+
 
 # All Target
 all: main-build
@@ -76,12 +79,17 @@ CICDBadweh.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+CICDBadweh.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "CICDBadweh.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) CICDBadweh.elf CICDBadweh.list CICDBadweh.map default.size.stdout
+	-$(RM) CICDBadweh.bin CICDBadweh.elf CICDBadweh.list CICDBadweh.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
