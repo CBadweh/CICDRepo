@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         TOOL_DIR = "${WORKSPACE}\\ci-cd-tools"
+        echo "${WORKSPACE}"
     }
 
     stages {
@@ -20,5 +21,11 @@ pipeline {
                 }
             }
         }
+        stage('Flash-Debug') { 
+            steps {
+                bat "${TOOL_DIR}\\flash.bat $params.DUT_STLINK_sn ${WORKSPACE}\\Debug\\CICDBadweh.bin"
+            }
+        }
+
     }
 }
