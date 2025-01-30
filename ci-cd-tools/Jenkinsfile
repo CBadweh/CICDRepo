@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                echo 'Hello nrok'
+                echo 'Hello nrok, update Git webhook address from nrok'
             }
         }
     }
