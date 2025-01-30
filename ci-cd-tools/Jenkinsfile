@@ -13,5 +13,12 @@ pipeline {
                 // bat "${TOOL_DIR}\\build.bat ${WORKSPACE}\\Release Release all"
             }
         }
+        stage('Static Code Analysis') {
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    bat "${TOOL_DIR}\\static-analysis.bat ${WORKSPACE}\\App"
+                }
+            }
+        }
     }
 }
