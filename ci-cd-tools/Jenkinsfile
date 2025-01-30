@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         TOOL_DIR = "${WORKSPACE}\\ci-cd-tools"
-        echo ${WORKSPACE}
+        echo '${WORKSPACE}'
     }
 
     stages {
