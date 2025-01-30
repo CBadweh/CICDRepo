@@ -1,10 +1,15 @@
 pipeline {
-    agent any
+    agent any 
+
+    environment {
+        TOOL_DIR = "${WORKSPACE}\\ci-cd-tools"
+    }
 
     stages {
-        stage('Hello') {
+        stage('Build') { 
             steps {
-                echo 'Hello nrok, update Git webhook address from nrok'
+                bat "${TOOL_DIR}\\build.bat ${WORKSPACE}\\Debug Debug all"
+                bat "${TOOL_DIR}\\build.bat ${WORKSPACE}\\Release Release all"
             }
         }
     }
