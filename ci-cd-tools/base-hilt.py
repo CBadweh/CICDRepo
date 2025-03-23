@@ -63,6 +63,25 @@ class GpioDev:
             _log.debug('[%s] Expecting "%s" got "%s%s"', self.name, pat,
                        self.console.before, self.console.after)
         return rc, None
+    # def get_pattern_list(self, pattern_list): # this is from ChatGPT to help debug the UART serial communication
+    #     """ Wait for a series of patterns from the device, with an arbitrary amount
+    #     of text allowed between the patterns.
+    #     """
+    #     rc = 0
+    #     for pat in pattern_list:
+    #         rc = self.console.expect([pat, pex.TIMEOUT, pex.EOF])
+    #         if rc != 0:
+    #             # 🔍 Print detailed debug information
+    #             _log.error('[%s] Failed pattern: "%s"', self.name, pat)
+    #             _log.error('[%s] Console BEFORE: "%s"', self.name, self.console.before)
+    #             _log.error('[%s] Console AFTER:  "%s"', self.name, self.console.after)
+    #             return rc, pat
+    #         _log.debug('[%s] Matched pattern: "%s" | BEFORE: "%s" AFTER: "%s"',
+    #                 self.name, pat, self.console.before, self.console.after)
+    #     return rc, None
+
+    
+    
 
     def get_prompt(self):
         rc, failed_pat = self.get_pattern_list([g_prompt])
@@ -115,7 +134,7 @@ def testing_init(dut_serial, sim_serial):
         g_sim = GpioDev('sim', sim_serial)
 
 ################################################################################
-def start_test(name, timeout=3):
+def start_test(name, timeout=7):
     """ Start a test, including recording the test name and junit object.
 
     name - the name of the test
@@ -133,6 +152,12 @@ def start_test(name, timeout=3):
         if dev is not None:
             dev.set_timeout(timeout)
             dev.flush_input()
+
+    # for dev in (g_dut, g_sim):
+    #     if dev is not None:
+    #         rc, pat = dev.do_reset()
+    #         if rc != 0:
+    #             _log.warning('Reset failed before test "%s": %s', g_test_name, pat)
 
 ################################################################################
 def test_fail(failure_info):
@@ -397,6 +422,7 @@ def test_gpio():
             step_idx += 1
             dev, send_msg, expect_msg = test_step
             dev.send_line(send_msg)
+            time.sleep(0.2) # Give the device time to respond. added by ChatGPT
             rc, failed_pat = dev.get_pattern_list([expect_msg, g_prompt])
             if rc != 0:
                 test_fail('At step idx %d did not find pattern "%s" rc=%d' %
@@ -423,8 +449,8 @@ def main():
                         help='Device under test console device (default COM4)',
                         default='COM4')
     parser.add_argument('--sim-serial',
-                        help='Simulation hardware console device, set to none if not present (default COM3)',
-                        default='COM3')
+                        help='Simulation hardware console device, set to none if not present (default COM9)',
+                        default='COM9')
     args = parser.parse_args()
 
     log_map = {
