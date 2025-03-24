@@ -10,7 +10,7 @@ exit /b 1
 
 :get_args
 
-set "top_dir=%1"
+set "top_dir=%~1"
 
 set "cmd=C:\Program Files\Cppcheck\cppcheck"
 set "opt=--error-exitcode=1 --inline-suppr"
