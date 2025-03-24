@@ -23,7 +23,7 @@ set compiler_prefix=arm-none-eabi-
 
 set "version_file=..\App\gpio-app\version.h"
 
-if [%BUILD_TAG%]==[] goto :do_make
+if "%BUILD_TAG%"=="" goto :do_make
 
 echo #ifndef _VERSION_H_ >"%version_file%"
 echo #define _VERSION_H_ >>"%version_file%"
