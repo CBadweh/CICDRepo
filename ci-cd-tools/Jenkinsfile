@@ -40,7 +40,7 @@ pipeline {
         //         bat "${TOOL_DIR}\\check-test-results.bat test-results-release.xml"
         //     }
         // }
-        // trigger
+        // trigger hello
 
     }
 }
