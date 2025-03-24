@@ -9,7 +9,7 @@ pipeline {
         stage('Build') { 
             steps {
                 echo 'Explore Build Stage'
-                bat "\"${TOOL_DIR}\\buildi.bat\" \"${WORKSPACE}\\Debug\" all"
+                bat "\"${TOOL_DIR}\\build.bat\" \"${WORKSPACE}\\Debug\" Debug all"
                 // bat "${TOOL_DIR}\\buildi.bat ${WORKSPACE}\\Debug all"
                 // bat "${TOOL_DIR}\\build.bat ${WORKSPACE}\\Release Release all"
             }
