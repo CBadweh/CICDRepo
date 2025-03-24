@@ -19,7 +19,7 @@ pipeline {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     // bat "${TOOL_DIR}\\static-analysis.bat ${WORKSPACE}\\App"
                     // bat "\"${TOOL_DIR}\\static-analysis.bat\" \"${WORKSPACE}\\App\"
-                    echo ${WORKSPACE}
+                    echo '${WORKSPACE}'
                     bat "\"${TOOL_DIR}\\static-analysis.bat\" \"${WORKSPACE}\\App\""
                 }
             }
