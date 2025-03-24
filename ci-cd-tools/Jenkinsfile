@@ -45,8 +45,6 @@ pipeline {
         // }
         stage('Test-Release') { 
             steps {
-                // bat "python \"${TOOL_DIR}\\base-hilt.py\" --dut-serial="COM4" --sim-serial=none --tver=\"${BUILD_TAG}-Release\""
-                // bat "python \"${TOOL_DIR}\\base-hilt.py\" --dut-serial=\\\"COM4\\\" --sim-serial=none --tver=\\\"${BUILD_TAG}-Release\\\""
                 bat "python \"${TOOL_DIR}\\base-hilt.py\" --dut-serial=\"COM4\" --sim-serial=none --tver=\"${BUILD_TAG}-Release\""
 
 
