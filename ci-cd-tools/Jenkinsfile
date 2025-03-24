@@ -17,10 +17,7 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    // bat "${TOOL_DIR}\\static-analysis.bat ${WORKSPACE}\\App"
-                    // bat "\"${TOOL_DIR}\\static-analysis.bat\" \"${WORKSPACE}\\App\"
-                   // bat "\"${TOOL_DIR}\\static-analysis.bat\" \"${WORKSPACE}\\App\""
-                    bat "call \"${TOOL_DIR}\\static-analysis.bat\" \"${WORKSPACE}\\App\""
+                    bat "${TOOL_DIR}\\static-analysis.bat ${WORKSPACE}\\App"
 
                 }
             }
